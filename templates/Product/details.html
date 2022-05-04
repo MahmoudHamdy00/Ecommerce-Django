@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row align-text-bottom">
+<div style="height: 100px;" class=" col-md-4 text-center col-sm-6 col-xs-6">
+    <div class="align-text-bottom">
+        <h1>{{product.name}} </h1>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem doloremque similique, quo sit omnis
+            quisquam accusamus nesciunt voluptatum ut fugit quis minima porro eos sequi atque. Hic harum ipsam quod.
+        </p>
+        <p>{{product.description}} </p>
+    </div>
+</div>
+<div class="col-md-push-4 col-sm-2 col-xs-10">
+    <img style="width:500px;" class="img-fluid. max-width: 100%" src="{% static product.img %}" alt="" />
+    <p>Price : <strong>$ {{product.price}}</strong> </p>
+</div>
+</div>
+{% endblock %}

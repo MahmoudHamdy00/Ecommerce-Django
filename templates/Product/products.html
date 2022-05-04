@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-push-9 btn-group alg-right-pad">
+        <button type="button" class="btn btn-default"><strong>{{prodCount}} </strong>items</button>
+        <div class="btn-group">
+            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                Sort Products &nbsp;
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="{{path}}order=name">By Name</a></li>
+                <li class="divider"></li>
+                <li><a href="{{path}}order=price">By Price Low</a></li>
+                <li class="divider"></li>
+                <li><a href="{{path}}order=-price">By Price High</a></li>
+                <li class="divider"></li>
+                <li><a href="{{path}}order=created_at">By date ascending</a></li>
+                <li class="divider"></li>
+                <li><a href="{{path}}order=-created_at">By date descending</a></li>
+            </ul>
+            <br>
+            <br>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+<div class="row">
+    {% if prodCount == 0 %}
+    <div class="col-md-4 text-center col-sm-6 col-xs-6">
+              <h1>  Comming Soon</h1>
+    </div>
+    {% endif %}
+    {% for object in products %}
+    <div class="col-md-4 text-center col-sm-6 col-xs-6">
+        <div class="thumbnail product-box">
+            <img src="{% static object.img %}" alt="" />
+            <div class="caption">
+                <h3><a href="{{object.id}}">{{object.name}} </a></h3>
+                <p>Price : <strong>$ {{object.price}}</strong> </p>
+                <!-- <p>{{object.description}} </p> -->
+                <p>
+                    <!-- <a href="#" class="btn btn-success" role="button">Add To Cart</a> -->
+                    <a href="{{object.id}}" class="btn btn-primary" role="button">See
+                        Details</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <!-- /.col -->
+</div>
+<!-- /.row -->
+<div class="row">
+    <ul class="pagination alg-right-pad">
+        {% if page != 1 %}
+        <li><a href="{{path}}page=1">&laquo;</a></li>
+        {% endif %}
+        {% if page|add:-1 > 0 %}
+        <li><a href="{{path}}page={{page|add:-1}}">&lt;</a></li>
+        {% endif %}
+        {% if page|add:-2 > 0 %}
+        <li><a href="{{path}}page={{page|add:-2}}">{{page|add:-2}}</a></li>
+        {% endif %}
+        {% if page|add:-1 > 0 %}
+        <li><a href="{{path}}page={{page|add:-1}}">{{page|add:-1}}</a></li>
+        {% endif %}
+        <li><a href="" class="list-group-item active">{{page}}</a></li>
+        {% if totalPage >= page|add:1 %}
+        <li><a href="{{path}}page={{page|add:1}}">{{page|add:1}}</a></li>
+        {% endif %}
+        {% if totalPage >= page|add:2 %}
+        <li><a href="{{path}}page={{page|add:2}}">{{page|add:2}}</a></li>
+        {% endif %}
+        {% if totalPage >= page|add:1 %}
+        <li><a href="{{path}}page={{page|add:1}}">&gt;</a></li>
+        {% endif %}
+        {% if page != totalPage %}
+        <li><a href="{{path}}page={{totalPage}}">&raquo;</a></li>
+        {% endif %}
+    </ul>
+</div>
+<!-- /.row -->
+</div>
+{% endblock %}
