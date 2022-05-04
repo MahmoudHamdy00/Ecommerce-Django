@@ -5,6 +5,13 @@ from .models import Product
 from Category.models import Category
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from django.template.defaulttags import register
+
+
+@register.filter
+def get_value(dictionary, key):
+    return dictionary.get(key)
+
 
 def product_view(request):
     path = request.get_full_path()
@@ -24,11 +31,13 @@ def product_view(request):
         path += '?'
     else:
         path += '&'
-    print(currentCategoryName)
-    print(order)
 
     page = request.GET.get('page', 1)
-
+    allProd = Product.objects.all()
+    NumberOfProductsInCategory = {}
+    for cur in Categories:
+        NumberOfProductsInCategory[cur.name] = allProd.filter(
+            category=cur).count()
     paginator = Paginator(Products, 9)
     if(int(page) > paginator.num_pages):
         page = paginator.num_pages
@@ -36,9 +45,6 @@ def product_view(request):
         page = 1
 
     Products = paginator.page(page)
-
-    print(page)
-    print(currentCategoryName)
     context = {
         'products': Products,
         'categories': Categories,
@@ -46,30 +52,35 @@ def product_view(request):
         'currentCategory': currentCategoryName,
         'path': path,
         'page': page,
-        'totalPage': paginator.num_pages
-
+        'totalPage': paginator.num_pages,
+        'cnt': NumberOfProductsInCategory,
     }
     return render(request, 'Product/products.html', context)
 
 
-def product_details_view(request,_id):
+def product_details_view(request, _id):
     product = Product.objects.get(id=_id)
     Categories = Category.objects.all()
     currentCategory = Category.objects.get(id=product.category_id)
-
-    print(currentCategory.name)
+    allProd = Product.objects.all()
+    NumberOfProductsInCategory = {}
+    for cur in Categories:
+        NumberOfProductsInCategory[cur.name] = allProd.filter(
+            category=cur).count()
     context = {
         'product': product,
         'categories': Categories,
-        'currentCategory': currentCategory.name
-    }
-    return render(request,'product/details.html',context)
+        'currentCategory': currentCategory.name,
+        'cnt': NumberOfProductsInCategory,
 
-
-def products_details_view(request):
-    objects = Product.objects.all()
-    context = {
-        'objects': objects
     }
-    return render(request, 'index.html', context)
     return render(request, 'product/details.html', context)
+
+
+# def products_details_view(request):
+#     objects = Product.objects.all()
+#     context = {
+#         'objects': objects
+#     }
+#     return render(request, 'index.html', context)
+#     return render(request, 'product/details.html', context)

@@ -56,22 +56,22 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div>
-                    <a href="#" class="list-group-item active">Categories
+                    <a href="/Product" class="list-group-item active">Categories
                     </a>
                     <ul class="list-group">
                         {% for object in categories %}
                         {% if currentCategory == object.name %}
-                        <li class="list-group-item active"><a style="color: green;"
-                                href="/?category={{object.name}}">{{object.name}}
+                        <li class="list-group-item active" style="background-color:#428bcaab;"><a style="color: black;"
+                                href="/Product?category={{object.name}}">{{object.name}}
                                 {% else %}
-                        <li class="list-group-item"><a href="/?category={{object.name}}">{{object.name}}
+                        <li class="list-group-item"><a href="/Product?category={{object.name}}">{{object.name}}
                                 {% endif %}
                             </a>
-                            <span class="label label-primary pull-right">234</span>
+                            <span class="label label-primary pull-right">{{ cnt|get_value:object.name }}</span>
                         </li>
                         {% endfor %}
                     </ul>
@@ -82,9 +82,9 @@
             <div class="col-md-9">
                 <div>
                     <ol class="breadcrumb">
-                        <li><a href="/">Home</a></li>
+                        <li><a href="/Product">Home</a></li>
                         {% if currentCategory and product.name %}
-                        <li class="active"><a href="/?category={{currentCategory}}">{{currentCategory}}</a></li>
+                        <li class="active"><a href="/Product?category={{currentCategory}}">{{currentCategory}}</a></li>
                         {% elif currentCategory %}
                         <li class="active">{{currentCategory}}</li>
                         {% endif %}
@@ -102,8 +102,11 @@
             <!-- /.row -->
         </div>
         <!--Footer -->
-        <div class="col-md-12 footer-box">
-            <div class="row">
+        <div class="col-md-12 footer-box" style="position: relative; bottom: 0;">
+            <div class="row" style="display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;">
                 <div class="col-md-4">
                     <strong>Our Location</strong>
                     <hr>
@@ -114,7 +117,7 @@
                         Email: info@yourdomain.com<br>
                     </p>
                 </div>
-                <div class="col-md-4 social-box">
+                <div class="col-md-3 social-box">
                     <strong>Our Social </strong>
                     <hr>
                     <a href="https://www.facebook.com/MahmoudH.Morsy"><i class="fa fa-facebook-square fa-3x "></i></a>
@@ -126,7 +129,7 @@
             <hr>
         </div>
         <!-- /.col -->
-        <div class="col-md-12 end-box ">
+        <div class="col-md-12 end-box text-center">
             &copy; 2022 | &nbsp; All Rights Reserved | &nbsp; 24x7 support | &nbsp; Email us:
             MahmoudH.Morsy@gmail.com
         </div>

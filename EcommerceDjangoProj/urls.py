@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
    # path('', index),
-    path('', include('Products.urls')),
+    path('Product/', include('Products.urls')),
     path('favicon.ico', RedirectView.as_view(
         url=staticfiles_storage.url('img/favicon.ico')))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

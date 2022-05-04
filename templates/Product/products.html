@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-md-push-9 btn-group alg-right-pad">
+    <div class="col-12 btn-group alg-right-pad" style="float: right; padding-right: 14px;">
         <button type="button" class="btn btn-default"><strong>{{prodCount}} </strong>items</button>
         <div class="btn-group">
             <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
@@ -29,14 +29,16 @@
 <!-- /.row -->
 <div class="row">
     {% if prodCount == 0 %}
-    <div class="col-md-4 text-center col-sm-6 col-xs-6">
-              <h1>  Comming Soon</h1>
-    </div>
+<div class="col-8 text-center">
+    <h1> Comming Soon</h1>
+</div>
     {% endif %}
     {% for object in products %}
-    <div class="col-md-4 text-center col-sm-6 col-xs-6">
-        <div class="thumbnail product-box">
-            <img src="{% static object.img %}" alt="" />
+    <div class="col-md-3 text-center col-sm-6 col-xs-6">
+        <div class="thumbnail product-box" style="min-height: 600px !important;max-height: 600px !important;display: flex;
+    flex-direction: column;
+    justify-content: space-between;">
+            <img src="{% static object.img %}" height="295px" alt="" />
             <div class="caption">
                 <h3><a href="{{object.id}}">{{object.name}} </a></h3>
                 <p>Price : <strong>$ {{object.price}}</strong> </p>
@@ -53,7 +55,7 @@
     <!-- /.col -->
 </div>
 <!-- /.row -->
-<div class="row">
+<div class="row" style="text-align: center;">
     <ul class="pagination alg-right-pad">
         {% if page != 1 %}
         <li><a href="{{path}}page=1">&laquo;</a></li>
