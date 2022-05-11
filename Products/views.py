@@ -20,14 +20,12 @@ def product_view(request):
     Categories = Category.objects.all()
    # Categories2 = Categories.values_list('name', 'product__count')
     if(currentCategoryName):
-        currentCategory = list(Category.objects.filter(
-            name=currentCategoryName)).__getitem__(0).id
-        Products = Product.objects.filter(
-            category=currentCategory).order_by(order)
+        currentCategory = list(Category.objects.filter(name=currentCategoryName)).__getitem__(0).id
+        Products = Product.objects.filter(category=currentCategory).order_by(order)
     else:
         Products = Product.objects.all().order_by(order)
     prodCount = Products.count
-    if(path == '/'):
+    if(path[-1] == '/'):
         path += '?'
     else:
         path += '&'
@@ -36,9 +34,8 @@ def product_view(request):
     allProd = Product.objects.all()
     NumberOfProductsInCategory = {}
     for cur in Categories:
-        NumberOfProductsInCategory[cur.name] = allProd.filter(
-            category=cur).count()
-    paginator = Paginator(Products, 9)
+        NumberOfProductsInCategory[cur.name] = allProd.filter(category=cur).count()
+    paginator = Paginator(Products, 16)
     if(int(page) > paginator.num_pages):
         page = paginator.num_pages
     if(int(page) < 1):
