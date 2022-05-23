@@ -34,6 +34,8 @@
         <h1> Comming Soon</h1>
     </div>
     {% endif %}
+    <h2>Total : {{total}} $</h2>
+    <br><br>
     {% for object in products %}
     <div class="col-md-3 text-center col-sm-6 col-xs-6">
         <div class="thumbnail product-box" style="min-height: 590px !important;max-height: 590px !important;display: flex;
@@ -45,7 +47,7 @@
                 <p>Price : <strong>$ {{object.price}}</strong> </p>
                 <!-- <p>{{object.description}} </p> -->
                 <p>
-                    <a href="{% url 'add_to_cart' id=object.id %}" class="btn btn-success" role="button">Add To Cart</a>
+                    <a href="{% url 'remove_from_cart' id=object.id %}" class="btn btn-danger" role="button">Remove from Cart</a>
                     <a href="{{object.id}}" class="btn btn-primary" role="button">See
                         Details</a>
                 </p>

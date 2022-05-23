@@ -6,4 +6,6 @@ from Category.models import Category
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def index(request):
+    if not request.session['cart']:
+            request.session['cart'] = "{}"
     return HttpResponse('<a href="Product">Go To Products</a>')
